@@ -6,11 +6,17 @@ var newTaglineTwo = document.querySelector('.tagline-2');
 var homePageLocation = document.querySelector('.home-view');
 var makeNewFormLocation = document.querySelector('.form-view');
 var viewSavedCoverLocation = document.querySelector('.saved-view');
+var userCover = document.querySelector('#cover');
+var userTitle = document.querySelector('#title');
+var userDesc1 = document.querySelector('#descriptor1');
+var userDesc2 = document.querySelector('#descriptor2');
 var homeButton = document.querySelector('.home-button');
 var randomCoverButton = document.querySelector('.random-cover-button');
 var saveCoverButton = document.querySelector('.save-cover-button');
 var viewSavedCoversButton = document.querySelector('.view-saved-button');
 var makeNewFormButton = document.querySelector('.make-new-button');
+var createUserCoverButton = document.querySelector('.create-new-book-button');
+
 
 
 // We've provided a few variables below
@@ -26,6 +32,7 @@ homeButton.addEventListener('click', showHomeCover);
 randomCoverButton.addEventListener('click', showNewRandomCover);
 makeNewFormButton.addEventListener('click', createNewCover);
 viewSavedCoversButton.addEventListener('click', viewSavedCovers);
+createUserCoverButton.addEventListener('click', storeUserData);
 // Create your event handlers and other functions here 👇
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -49,7 +56,6 @@ function createNewCover() {
   randomCoverButton.classList.add('hidden');
   saveCoverButton.classList.add('hidden');
   homeButton.classList.remove('hidden');
-
 }
 function viewSavedCovers() {
   viewSavedCoverLocation.classList.remove('hidden');
@@ -59,7 +65,6 @@ function viewSavedCovers() {
   homeButton.classList.remove('hidden');
   makeNewFormLocation.classList.add('hidden');
 }
-
 function showHomeCover() {
   makeNewFormLocation.classList.add('hidden');
   viewSavedCoverLocation.classList.add('hidden');
@@ -68,5 +73,12 @@ function showHomeCover() {
   homeButton.classList.add('hidden');
   homePageLocation.classList.remove('hidden');
 }
-
+function storeUserData(event) {
+  event.preventDefault();
+  covers.push(userCover.value);
+  titles.push(userTitle.value);
+  descriptors.push(userDesc1.value);
+  descriptors.push(userDesc2.value);
+  currentCover = new Cover (userCover.value, userTitle.value, userDesc1.value, userDesc2.value);  
+}
 randomHomePage();
