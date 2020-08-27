@@ -9,8 +9,9 @@ var viewSavedCoverLocation = document.querySelector('.saved-view');
 var homeButton = document.querySelector('.home-button');
 var randomCoverButton = document.querySelector('.random-cover-button');
 var saveCoverButton = document.querySelector('.save-cover-button');
-var makeNewFormButton = document.querySelector('.make-new-button');
 var viewSavedCoversButton = document.querySelector('.view-saved-button');
+var makeNewFormButton = document.querySelector('.make-new-button');
+
 
 // We've provided a few variables below
 var savedCovers = [
@@ -21,6 +22,7 @@ var currentCover;
 // Add your event listeners here 👇
 // we need to have the function running once the page is loaded
 // were looking out for how to use ONLOAD and where
+homeButton.addEventListener('click', showHomeCover);
 randomCoverButton.addEventListener('click', showNewRandomCover);
 makeNewFormButton.addEventListener('click', createNewCover);
 viewSavedCoversButton.addEventListener('click', viewSavedCovers);
@@ -55,7 +57,16 @@ function viewSavedCovers() {
   randomCoverButton.classList.add('hidden');
   saveCoverButton.classList.add('hidden');
   homeButton.classList.remove('hidden');
+  makeNewFormLocation.classList.add('hidden');
 }
 
+function showHomeCover() {
+  makeNewFormLocation.classList.add('hidden');
+  viewSavedCoverLocation.classList.add('hidden');
+  randomCoverButton.classList.remove('hidden');
+  saveCoverButton.classList.remove('hidden');
+  homeButton.classList.add('hidden');
+  homePageLocation.classList.remove('hidden');
+}
 
 randomHomePage();
