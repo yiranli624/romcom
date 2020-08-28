@@ -33,7 +33,7 @@ randomCoverButton.addEventListener('click', showNewRandomCover);
 makeNewFormButton.addEventListener('click', createNewCover);
 viewSavedCoversButton.addEventListener('click', viewSavedCovers);
 createUserCoverButton.addEventListener('click', storeUserData);
-
+saveCoverButton.addEventListener('click', saveCover);
 // Create your event handlers and other functions here 👇
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -76,17 +76,38 @@ function showHomeCover() {
   homePageLocation.classList.remove('hidden');
 }
 function storeUserData(event) {
-  currentCover = new Cover (userCover.value, userTitle.value, userDesc1.value, userDesc2.value);  
+  currentCover = new Cover (userCover.value, userTitle.value, userDesc1.value, userDesc2.value);
   event.preventDefault();
   covers.push(userCover.value);
   titles.push(userTitle.value);
   descriptors.push(userDesc1.value);
   descriptors.push(userDesc2.value);
-  showHomeCover()
+  showHomeCover();
   newCoverImage.src = currentCover.cover;
   newTitle.innerText = currentCover.title;
   newTaglineOne.innerText = currentCover.tagline1;
   newTaglineTwo.innerText = currentCover.tagline2;
 }
-
+function saveCover() {
+  currentCover = new Cover(newCoverImage.src, newTitle.innerText, newTaglineOne.innerText, newTaglineTwo.innerText);
+  var allCovers = [];
+  var allTitles = [];
+  var tagLineOne = [];
+  var tagLineTwo = [];
+  for (var i=0; i<savedCovers.length; i++) {
+    allCovers.push(savedCovers[i].cover);
+    allTitles.push(savedCovers[i].title);
+    tagLineOne.push(savedCovers[i].descriptor1);
+    tagLineTwo.push(savedCovers[i].descriptor2);
+  }
+  if (allCovers.includes(currentCover.cover) === false) {
+    savedCovers.push(currentCover);
+  } else if (allTitles.includes(currentCover.title) === false) {
+    savedCovers.push(currentCover);
+  } else if (tagLineOne.includes(currentCover.descriptor1) === false) {
+    savedCovers.push(currentCover);
+  } else if (tagLineTwo.includes(currentCover.descriptor2) === false) {
+    savedCovers.push(currentCover);
+  }
+}
 randomHomePage();
