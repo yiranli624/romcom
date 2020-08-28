@@ -33,6 +33,7 @@ randomCoverButton.addEventListener('click', showNewRandomCover);
 makeNewFormButton.addEventListener('click', createNewCover);
 viewSavedCoversButton.addEventListener('click', viewSavedCovers);
 createUserCoverButton.addEventListener('click', storeUserData);
+
 // Create your event handlers and other functions here 👇
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -59,6 +60,7 @@ function createNewCover() {
 }
 function viewSavedCovers() {
   viewSavedCoverLocation.classList.remove('hidden');
+  console.log(savedCovers);
   homePageLocation.classList.add('hidden');
   randomCoverButton.classList.add('hidden');
   saveCoverButton.classList.add('hidden');
@@ -74,11 +76,17 @@ function showHomeCover() {
   homePageLocation.classList.remove('hidden');
 }
 function storeUserData(event) {
+  currentCover = new Cover (userCover.value, userTitle.value, userDesc1.value, userDesc2.value);  
   event.preventDefault();
   covers.push(userCover.value);
   titles.push(userTitle.value);
   descriptors.push(userDesc1.value);
   descriptors.push(userDesc2.value);
-  currentCover = new Cover (userCover.value, userTitle.value, userDesc1.value, userDesc2.value);  
+  showHomeCover()
+  newCoverImage.src = currentCover.cover;
+  newTitle.innerText = currentCover.title;
+  newTaglineOne.innerText = currentCover.tagline1;
+  newTaglineTwo.innerText = currentCover.tagline2;
 }
+
 randomHomePage();
