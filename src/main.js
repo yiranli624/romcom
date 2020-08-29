@@ -16,24 +16,21 @@ var saveCoverButton = document.querySelector('.save-cover-button');
 var viewSavedCoversButton = document.querySelector('.view-saved-button');
 var makeNewFormButton = document.querySelector('.make-new-button');
 var createUserCoverButton = document.querySelector('.create-new-book-button');
-
-
-
 // We've provided a few variables below
 var savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
 var currentCover;
-
 // Add your event listeners here 👇
 // we need to have the function running once the page is loaded
 // were looking out for how to use ONLOAD and where
 homeButton.addEventListener('click', showHomeCover);
 randomCoverButton.addEventListener('click', showNewRandomCover);
 makeNewFormButton.addEventListener('click', createNewCover);
-viewSavedCoversButton.addEventListener('click', viewSavedCovers);
+viewSavedCoversButton.addEventListener('click', displaySavedCovers);
 createUserCoverButton.addEventListener('click', storeUserData);
 saveCoverButton.addEventListener('click', saveCover);
+
 // Create your event handlers and other functions here 👇
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -54,6 +51,7 @@ function showNewRandomCover() {
 function createNewCover() {
   makeNewFormLocation.classList.remove('hidden');
   homePageLocation.classList.add('hidden');
+  viewSavedCoverLocation.classList.add('hidden');
   randomCoverButton.classList.add('hidden');
   saveCoverButton.classList.add('hidden');
   homeButton.classList.remove('hidden');
@@ -97,17 +95,31 @@ function saveCover() {
   for (var i=0; i<savedCovers.length; i++) {
     allCovers.push(savedCovers[i].cover);
     allTitles.push(savedCovers[i].title);
-    tagLineOne.push(savedCovers[i].descriptor1);
-    tagLineTwo.push(savedCovers[i].descriptor2);
+    tagLineOne.push(savedCovers[i].tagline1);
+    tagLineTwo.push(savedCovers[i].tagline2);
   }
   if (allCovers.includes(currentCover.cover) === false) {
     savedCovers.push(currentCover);
   } else if (allTitles.includes(currentCover.title) === false) {
     savedCovers.push(currentCover);
-  } else if (tagLineOne.includes(currentCover.descriptor1) === false) {
+  } else if (tagLineOne.includes(currentCover.tagline1) === false) {
     savedCovers.push(currentCover);
-  } else if (tagLineTwo.includes(currentCover.descriptor2) === false) {
+  } else if (tagLineTwo.includes(currentCover.tagline2) === false) {
     savedCovers.push(currentCover);
+  }
+}
+function displaySavedCovers() {
+  viewSavedCovers() 
+  viewSavedCoverLocation.innerHTML = '';
+  for (var i = 0; i < savedCovers.length; i++) {
+    viewSavedCoverLocation.innerHTML +=
+    `<section class = "main-cover">
+      <img class = "cover-image" src= ${savedCovers[i].cover}>
+      <h2 class = "cover-title"> ${savedCovers[i].title}</h2>
+      <h3 class = "tagline">A tale of ${savedCovers[i].tagline1} and ${savedCovers[i].tagline2}</h3>
+      <img class="price-tag" src="./assets/price.png">
+      <img class="overlay" src="./assets/overlay.png">
+    </section>`;
   }
 }
 randomHomePage();
