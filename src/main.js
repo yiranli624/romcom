@@ -5,7 +5,8 @@ var newTaglineOne = document.querySelector('.tagline-1');
 var newTaglineTwo = document.querySelector('.tagline-2');
 var homePageLocation = document.querySelector('.home-view');
 var makeNewFormLocation = document.querySelector('.form-view');
-var viewSavedCoverLocation = document.querySelector('.saved-view');
+var viewSavedCoverLocation = document.querySelector('.saved-covers-section');
+var viewSavedViewLocation = document.querySelector('.saved-view ');
 var userCover = document.querySelector('#cover');
 var userTitle = document.querySelector('#title');
 var userDesc1 = document.querySelector('#descriptor1');
@@ -30,19 +31,20 @@ makeNewFormButton.addEventListener('click', createNewCover);
 viewSavedCoversButton.addEventListener('click', displaySavedCovers);
 createUserCoverButton.addEventListener('click', storeUserData);
 saveCoverButton.addEventListener('click', saveCover);
+viewSavedViewLocation.addEventListener('dblclick', removeCover); 
 
 // Create your event handlers and other functions here 👇
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
-function randomHomePage(){
+function randomHomePage() {
   newCoverImage.src = covers[getRandomIndex(covers)];
   newTitle.innerText= titles[getRandomIndex(titles)];
   newTaglineOne.innerText = descriptors[getRandomIndex(descriptors)];
   newTaglineTwo.innerText = descriptors[getRandomIndex(descriptors)];
 }
 function showNewRandomCover() {
-  currentCover = new Cover(covers[getRandomIndex(covers)], titles[getRandomIndex(titles)], descriptors[getRandomIndex(descriptors)], descriptors[getRandomIndex(descriptors)] );
+  currentCover = new Cover(covers[getRandomIndex(covers)], titles[getRandomIndex(titles)], descriptors[getRandomIndex(descriptors)], descriptors[getRandomIndex(descriptors)]);
   newCoverImage.src = currentCover.cover;
   newTitle.innerText = currentCover.title;
   newTaglineOne.innerText = currentCover.tagline1;
@@ -51,14 +53,13 @@ function showNewRandomCover() {
 function createNewCover() {
   makeNewFormLocation.classList.remove('hidden');
   homePageLocation.classList.add('hidden');
-  viewSavedCoverLocation.classList.add('hidden');
+  viewSavedViewLocation.classList.add('hidden');
   randomCoverButton.classList.add('hidden');
   saveCoverButton.classList.add('hidden');
   homeButton.classList.remove('hidden');
 }
 function viewSavedCovers() {
-  viewSavedCoverLocation.classList.remove('hidden');
-  console.log(savedCovers);
+  viewSavedViewLocation.classList.remove('hidden');
   homePageLocation.classList.add('hidden');
   randomCoverButton.classList.add('hidden');
   saveCoverButton.classList.add('hidden');
@@ -67,13 +68,13 @@ function viewSavedCovers() {
 }
 function showHomeCover() {
   makeNewFormLocation.classList.add('hidden');
-  viewSavedCoverLocation.classList.add('hidden');
+  viewSavedViewLocation.classList.add('hidden');
   randomCoverButton.classList.remove('hidden');
   saveCoverButton.classList.remove('hidden');
   homeButton.classList.add('hidden');
   homePageLocation.classList.remove('hidden');
 }
-function storeUserData(event) {
+function storeUserData() {
   currentCover = new Cover (userCover.value, userTitle.value, userDesc1.value, userDesc2.value);
   event.preventDefault();
   covers.push(userCover.value);
@@ -109,17 +110,25 @@ function saveCover() {
   }
 }
 function displaySavedCovers() {
-  viewSavedCovers() 
+  viewSavedCovers();
   viewSavedCoverLocation.innerHTML = '';
   for (var i = 0; i < savedCovers.length; i++) {
-    viewSavedCoverLocation.innerHTML +=
-    `<section class = "main-cover">
+    viewSavedCoverLocation.innerHTML += 
+    `<section class = "mini-cover">
       <img class = "cover-image" src= ${savedCovers[i].cover}>
       <h2 class = "cover-title"> ${savedCovers[i].title}</h2>
       <h3 class = "tagline">A tale of ${savedCovers[i].tagline1} and ${savedCovers[i].tagline2}</h3>
       <img class="price-tag" src="./assets/price.png">
       <img class="overlay" src="./assets/overlay.png">
     </section>`;
+  }
+}
+function removeCover() {
+  for (var i = 0; i < savedCovers.length; i++) {
+    if (event.target.src === savedCovers[i].cover) {
+      savedCovers.splice(i,1);
+      event.target.closest('.mini-cover').remove();
+    }
   }
 }
 randomHomePage();
