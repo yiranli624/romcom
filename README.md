@@ -1,5 +1,16 @@
 ## RomCom - Pair Project
 
+Created by:<br>
+
+Elle Li: https://github.com/Elle624
+<br>&<br>
+Daniel Allen: https://github.com/DanielAllen542
+
+
+
+Deploy here: <br>
+https://danielallen542.github.io/romcom/
+
 ### Intro
 ![homeView](./assets/homeView.png)
 Welcome to our Romcom app! Once the website is loaded, on the top the user can see four buttons, "Show new random cover", "Save Cover", "View Saved Covers", and "Make Your Own Cover". Underneath a randomly generated romcom cover with a picture, a title, and two tag-lines can be viewed.
