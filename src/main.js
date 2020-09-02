@@ -1,4 +1,3 @@
-// Create variables targetting the relevant DOM elements here 👇
 var newCoverImage = document.querySelector('.cover-image');
 var newTitle = document.querySelector('.cover-title');
 var newTaglineOne = document.querySelector('.tagline-1');
@@ -18,14 +17,11 @@ var viewSavedCoversButton = document.querySelector('.view-saved-button');
 var makeNewFormButton = document.querySelector('.make-new-button');
 var createUserCoverButton = document.querySelector('.create-new-book-button');
 
-// We've provided a few variables below
 var savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
 var currentCover;
-// Add your event listeners here 👇
-// we need to have the function running once the page is loaded
-// were looking out for how to use ONLOAD and where
+
 homeButton.addEventListener('click', showHomeCover);
 randomCoverButton.addEventListener('click', createRandomCover);
 makeNewFormButton.addEventListener('click', createNewCover);
@@ -34,7 +30,6 @@ createUserCoverButton.addEventListener('click', storeUserData);
 saveCoverButton.addEventListener('click', saveCover);
 savedViewSection.addEventListener('dblclick', removeSavedCover);
 
-// Create your event handlers and other functions here 👇
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -55,7 +50,7 @@ function loadHomePage() {
 function createRandomCover() {
   currentCover = new Cover(loadHomePage());
 }
-function switchPage() {
+function createNewCover() {
   homeButton.classList.remove('hidden');
   homePageSection.classList.add('hidden');
   randomCoverButton.classList.add('hidden');
@@ -63,11 +58,8 @@ function switchPage() {
   savedViewSection.classList.add('hidden');
   formViewSection.classList.remove('hidden');
 }
-function createNewCover() {
-  switchPage();
-}
 function viewSavedCovers() {
-  switchPage();
+  createNewCover();
   savedViewSection.classList.toggle('hidden');
   formViewSection.classList.toggle('hidden');
 }
@@ -81,12 +73,7 @@ function showHomeCover() {
 }
 function storeUserData() {
   event.preventDefault();
-  currentCover = new Cover (
-    userCover.value,
-    userTitle.value,
-    userDesc1.value,
-    userDesc2.value
-    );
+  currentCover = new Cover (userCover.value, userTitle.value, userDesc1.value, userDesc2.value);
   covers.push(userCover.value);
   titles.push(userTitle.value);
   descriptors.push(userDesc1.value);
@@ -95,12 +82,7 @@ function storeUserData() {
   generateCover(currentCover.cover, currentCover.title, currentCover.tagline1, currentCover.tagline2);
 }
 function saveCover() {
-  currentCover = new Cover(
-    newCoverImage.src,
-    newTitle.innerText,
-    newTaglineOne.innerText,
-    newTaglineTwo.innerText
-    );
+  currentCover = new Cover(newCoverImage.src, newTitle.innerText, newTaglineOne.innerText, newTaglineTwo.innerText);
   var allCovers = [];
   var allTitles = [];
   var tagLineOne = [];
@@ -136,7 +118,7 @@ function displaySavedCovers() {
   }
 }
 function removeSavedCover() {
-  if(event.target.classList.contains('cover-image')) {
+  if (event.target.classList.contains('cover-image')) {
     for (var i = 0; i < savedCovers.length; i++) {
       if (event.target.src === savedCovers[i].cover) {
         savedCovers.splice(i,1);
